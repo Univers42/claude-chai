@@ -1,8 +1,6 @@
 # claude-chai — agent configuration for real-engineer code
 
-<p align="center">
-  <img src="![alt text](image.png)" alt="claude-chai — the little green devil that does the job" width="320">
-</p>
+![alt text](image.png)
 
 A drop-in `.claude/` configuration that wires Claude Code to produce **high-quality, well-tested,
 minimal-but-correct** solutions in **any** programming project — language- and stack-agnostic. It turns
