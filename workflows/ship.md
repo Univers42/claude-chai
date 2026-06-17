@@ -20,9 +20,9 @@ Bump type: $ARGUMENTS
 - Compare against last release tag
 - If any regression > 5%: ABORT and report what regressed
 
-## 3. Compat gate
+## 3. Parity gate
 
-- Run PB compatibility tests
+- Run the behavioral parity tests against the reference spec
 - If any new failure vs last release: ABORT and report
 
 ## 4. Version bump
@@ -40,5 +40,5 @@ Bump type: $ARGUMENTS
 - Version number
 - Changelog summary
 - Benchmark comparison
-- Compat comparison
+- Parity comparison
 - **Wait for explicit "ship it" before pushing tag**

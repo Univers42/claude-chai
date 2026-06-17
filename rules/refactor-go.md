@@ -15,7 +15,7 @@ description: Go refactoring rules
 - Receiver name: one or two letters, consistent across methods
 - Context is always the first parameter
 
-## Hexagonal architecture (project convention)
+## Hexagonal architecture
 
 - Ports (interfaces) in the domain package
 - Adapters implement ports, never imported by domain

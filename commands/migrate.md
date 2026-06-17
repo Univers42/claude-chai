@@ -1,27 +1,27 @@
 ---
-description: Run or inspect Grobase SQL migrations across engines. Usage: /migrate <status|all|mongo|mysql>
+description: Run or inspect the project's migrations across backends. Usage: /migrate <status|all|backend>
 ---
 
 Action: $ARGUMENTS
 
-Drive the migration lifecycle through the root Makefile (Docker-first). Do NOT hand-edit SQL here — to
+Drive the migration lifecycle through the project's task runner (detect it with `.claude/tools/facts.sh`,
+run it under `.claude/tools/watch.sh`). Do NOT hand-edit migrations here — to
 AUTHOR a new migration use `/workflow:migrate-db`.
 
 ## Workflow
 
 ### Phase 1 — Inspect
 
-- `make migrate-status` — applied vs pending.
-- Postgres migrations live in `scripts/migrations/postgresql/` (001–065; note the 057–059 gap).
+- Run the project's migrate-status command — applied vs pending.
+- Locate the migration files in the project (note any gaps in the numbering).
 
 ### Phase 2 — Apply (confirm first — DB writes are irreversible)
 
-- `status` → `make migrate-status`
-- `all`    → `make migrate-all`
-- `mongo`  → `make migrate-mongo`   (needs the `data-plane` profile up)
-- `mysql`  → `make migrate-mysql`   (needs the `data-plane` profile up)
-- no arg   → `make migrate`
+- `status`  → the project's migrate-status command
+- `all`     → the project's migrate-all command
+- `backend` → the project's per-backend migrate command   (needs that backend's services up)
+- no arg    → the project's default migrate command
 
 ### Phase 3 — Verify
 
-- Re-run `make migrate-status`; confirm idempotency (re-applying is a no-op).
+- Re-run the migrate-status command; confirm idempotency (re-applying is a no-op).

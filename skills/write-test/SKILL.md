@@ -8,6 +8,13 @@ tools: Read, Write, Bash
 
 # Write Tests
 
+## 0. Detect the framework
+
+- Run `.claude/tools/facts.sh` — it reports the detected test framework. Write in
+  THAT framework, in its idiom (see `rules/test-frameworks.md`). Don't introduce a
+  second framework; don't hand-roll asserts/mocks it already ships.
+- None configured? Pick the canonical default for the stack and say why in one line.
+
 ## 1. Read the source
 
 - Understand every public function's contract
@@ -26,7 +33,8 @@ Present the test plan. Wait for approval.
 
 ## 3. Write
 
-- Table-driven tests when possible (Go/Rust/TS all support this pattern)
+- Table-driven / parameterized tests in the detected framework's idiom (Go subtests, `rstest`, `it.each`, `pytest.mark.parametrize`)
+- Property-based tests for anything parsing external input (Hypothesis, proptest, fast-check, `testing/quick`)
 - One test function per behavior, not per source function
 - Test names describe the scenario: `test_login_rejects_expired_token`
 - No test depends on another test's state

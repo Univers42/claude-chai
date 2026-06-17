@@ -20,7 +20,7 @@ contracts, and data flow — not implementation details.
   without touching the other side?"
 - If two things change for different reasons, they're separate modules
 - If two things always change together, they're the same module
-- Protobuf contracts between services, not shared types
+- Explicit, versioned contracts at boundaries (IDL / schema / typed interfaces), not shared types
 - Nothing is lost, everything transforms — design for extraction
 
 ## What you evaluate

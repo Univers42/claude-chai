@@ -3,7 +3,7 @@ description: Universal refactoring rules — applies to all technologies
 alwaysApply: true
 ---
 
-# Refactoring — Common Ground (42 philosophy)
+# Refactoring — Common Ground (craft discipline)
 
 ## Structural invariants
 
@@ -51,7 +51,7 @@ alwaysApply: true
 - Message format: `refactor(<scope>): <what> — <which rule>`
 - Never mix refactoring with feature work in the same commit
 
-## 42 spirit
+## Craft over cleverness
 
 - Simplest solution that works. No premature abstraction.
 - If you can delete code instead of refactoring it, delete it.

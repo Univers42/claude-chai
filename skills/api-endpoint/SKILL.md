@@ -12,8 +12,8 @@ DO NOT add a route before reading the nearest existing handler and `.claude/rule
 
 ## 1. Locate
 
-- Which plane owns it: Go control-plane (`src/go/control-plane/internal/`), TS query/permission (`src/apps/*`), or the Rust data-plane.
-- Find the closest existing endpoint; mirror its file, registration, and owner-scoping pattern.
+- Which part of the project owns it; find the closest existing endpoint.
+- Mirror its file, registration, and owner-scoping pattern.
 
 ## 2. Design
 
@@ -22,14 +22,14 @@ DO NOT add a route before reading the nearest existing handler and `.claude/rule
 
 ## 3. Implement
 
-- Handler + route registration + the OpenAPI entry in `infra/config/openapi/grobase-public.json`.
-- Engine-agnostic: if it touches data, it must hold across all 8 adapters.
+- Handler + route registration + the entry in the project's OpenAPI / API spec.
+- Adapter-agnostic: if it touches data, it must hold across every backend the project supports.
 
 ## 4. Verify
 
-- Run the plane's check (`make go-control-plane-check` / `make nestjs-ci` / `make rust-data-plane-check`).
-- Regenerate SDKs if the spec changed (`cd sdks/js && npm run codegen:all`).
-- Add a verify gate `scripts/verify/m<NN>-*.sh` that exercises the route.
+- Run the relevant check through the project's task runner (detect it with `.claude/tools/facts.sh`).
+- Regenerate SDKs if the spec changed.
+- Add a verify gate (a `scripts/verify/` check or CI job) that exercises the route.
 
 ## 5. Report
 

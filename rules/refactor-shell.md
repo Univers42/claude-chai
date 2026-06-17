@@ -16,7 +16,7 @@ description: POSIX shell refactoring rules
 
 ## Structure
 
-- Max 25 lines per function (42 spirit)
+- Max 25 lines per function — keep them short
 - Functions at top, execution at bottom after a main() call
 - Local variables via local keyword or subshell isolation
 - Cleanup via trap — every temp file cleaned on EXIT
@@ -25,7 +25,7 @@ description: POSIX shell refactoring rules
 
 - `shellcheck -s sh` — zero warnings
 - Test with dash, not just bash
-- Runs correctly under hellish (your own shell)
+- Runs correctly under every shell you target, not just your default
 
 ## Shell-specific ladder extensions
 

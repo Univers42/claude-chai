@@ -1,33 +1,38 @@
 ---
-globs: ["src/apps/**/*.ts", "src/go/control-plane/**/*.go"]
-description: REST API conventions — endpoints, auth, owner-scoping, errors
+globs: ["**/routes/**", "**/handlers/**", "**/controllers/**", "**/api/**", "**/*router*", "**/*controller*"]
+description: REST API conventions — endpoints, auth, access control, errors
 ---
 
 # API Conventions
 
 ## Shape
 
-- Resource-oriented, plural-noun paths under `/v1/<resource>`; tenant self-serve under `/v1/tenants/me*`.
+- Resource-oriented, plural-noun paths under a version prefix (`/v1/<resource>`).
 - Versioned — never break a shipped contract; add, don't mutate.
-- JSON in/out; document every public route in `infra/config/openapi/grobase-public.json`.
+- JSON in/out; document every public route in the project's OpenAPI / API spec.
 
-## Auth & owner-scoping
+## Auth & access control
 
-- A cleartext API key resolves to identity via the control plane (`POST /v1/keys/verify`).
-- Owner-scope every read and write per request — never by pool state (this is what lets `SHARE_POOLS` hold 10K tenants on one pool).
-- No `{id}` in self-serve paths — resolve the tenant from the credential (no cross-tenant access by construction).
-
-## Flag-gating
-
-- Cloud/enterprise routes mount only under `if envBool("FLAG")` (default false) — a missing var = byte-parity.
-- Master AND sub-flag must both be truthy (e.g. `METERING_ENABLED` AND `DATA_PLANE_METERING`); flipping one is a silent no-op.
+- Authenticate every request; resolve the caller's identity from the credential, not from a path `{id}`.
+- Authorize per request — scope every read and write to the caller; never trust client-supplied ownership.
+- No cross-owner access by construction — derive the owner from the credential, not the request body.
 
 ## Errors
 
-- Correct HTTP status: 402 quota exceeded, 403 ABAC deny, 404 not-found / owner-miss, 429 rate-limit.
-- Never leak internals (stack traces, SQL, DSNs) in an error body.
+- Correct HTTP status: 400 bad input, 401 unauthenticated, 403 denied, 404 not-found, 409 conflict, 429 rate-limit.
+- One consistent error envelope; never leak internals (stack traces, SQL, DSNs, file paths) in the body.
+- Actionable: what failed, why, what the caller can do.
+
+## Pagination & idempotency
+
+- List endpoints paginate by default (cursor or limit/offset) — never return an unbounded set.
+- Mutations are idempotent where the verb implies it (`PUT`/`DELETE`); accept an idempotency key for unsafe retries.
+
+## Flag-gating (when applicable)
+
+- New or risky behavior mounts behind a flag (default off) — a missing flag means the old behavior, unchanged.
 
 ## After changes
 
-- Update the OpenAPI spec and regenerate SDKs (`cd sdks/js && npm run codegen:all`).
-- Add or extend a verify gate `scripts/verify/m<NN>-*.sh`.
+- Update the OpenAPI spec and regenerate any SDKs.
+- Add or extend the project's verification gate (a `scripts/verify/` check or CI job).

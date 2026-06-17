@@ -28,7 +28,7 @@ not adjectives. "Fast" is not a measurement.
 - Never say "faster" without a number and a baseline
 - Never optimize without profiling first
 - Always check memory alongside CPU
-- Compare against PocketBase on the same hardware when relevant
+- Compare against the baseline / previous version on the same hardware when relevant
 - If the improvement is within noise (< 3%), it's not an improvement
 
 ## Output

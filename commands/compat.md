@@ -1,17 +1,17 @@
 ---
-description: Run the PocketBase feature-parity comparison for Grobase nano. Usage: /compat [feature-area]
+description: Run the feature-parity comparison against the reference baseline for the project. Usage: /compat [feature-area]
 ---
 
 Feature area: $ARGUMENTS
 
-Compare Grobase nano against PocketBase for the given feature area (or all if none given). For a deep,
+Compare the project against the reference implementation for the given feature area (or all if none given). For a deep,
 endpoint-by-endpoint pass, use `/workflow:compat-audit`.
 
 ## Workflow
 
 ### Phase 1 — Enumerate
 
-- List the PocketBase capabilities in scope and nano's equivalent, citing `wiki/competitive/` (nano-vs-pocketbase, competitive-matrix).
+- List the reference baseline's capabilities in scope and the project's equivalent, citing the project's reference docs.
 
 ### Phase 2 — Compare
 
@@ -19,4 +19,4 @@ endpoint-by-endpoint pass, use `/workflow:compat-audit`.
 
 ### Phase 3 — Report
 
-- A markdown table: capability | PocketBase | Grobase nano | verdict.
+- A markdown table: capability | reference baseline | the project | verdict.

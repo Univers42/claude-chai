@@ -1,5 +1,5 @@
 ---
-description: Deep refactor following 42-grade strictness. Usage: /refactor <technology> [file or module path]
+description: Deep refactor at the strictest standard for the technology. Usage: /refactor <technology> [file or module path]
 ---
 
 Technology: $ARGUMENTS
